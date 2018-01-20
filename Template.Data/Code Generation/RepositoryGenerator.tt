@@ -1,0 +1,152 @@
+<#@ template language="C#" debug="false" hostspecific="true" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
+<#@ include file="T4Helper.ttinclude" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#  //Set these options
+    string targetNamespace = "";
+	string projectNamespace = "";
+
+    string efContext = "DefaultModel"; //If Context is not in the same namespace rename this to the name of the context
+	string classPrefix="";
+
+
+    IServiceProvider serviceProvider = (IServiceProvider)this.Host;
+    DTE dte = serviceProvider.GetService(typeof(DTE)) as DTE; 
+    var project = GetActiveProject(dte);
+
+    var classes = FindClasses(project, targetNamespace, "");
+    var classWithDbContext = classes.FirstOrDefault(currentClass => currentClass.Bases.OfType<CodeElement>().Any(currentBase => currentBase.Name == "DbContext"));
+
+    var classNames = classes
+                    .Select(currentClass => currentClass.Name)
+                    .ToList();
+
+    if(classWithDbContext != null)
+    {
+        efContext = classWithDbContext.Name;
+        classNames.Remove(efContext);
+    }
+
+	
+
+    GenerateRepositoryFromPoco(project, targetNamespace,projectNamespace, classNames, efContext);
+
+#>
+using System;
+using <#=targetNamespace#>;
+using <#=projectNamespace#>;
+
+namespace <#=targetNamespace#>
+{
+	public interface I<#=classPrefix#>UnitOfWork : IUnitOfWork
+	{
+		<#
+		foreach(string className in classNames)
+		{
+			var properClassName = GetProperClassName(className);
+			var repositoryInterfaceName = "I" + properClassName + "Repository";
+		#>
+	<#= repositoryInterfaceName + " " + className+"s" #> { get; }
+		<#
+		}
+		#>
+	
+	//Change this to the context type
+	I<#=classPrefix#>Context Context();
+	void Complete();
+
+	}
+}
+<# CreateFile(@"I"+classPrefix+"UnitofWork.cs"); #>
+using <#= projectNamespace #>;
+using <#= targetNamespace #>;
+
+namespace <#=targetNamespace#>
+{
+	public class <#=classPrefix#>UnitOfWork : I<#=classPrefix#>UnitOfWork
+	{
+		private <#= efContext #> _context;
+
+		//public UnitOfWork(<#= efContext #> context)
+		//{
+		   // _context = context;
+		//}
+
+		//Delete this default constructor if using an IoC container
+		public <#=classPrefix#>UnitOfWork()
+		{
+			_context = new <#= efContext #>();
+		}
+	
+		<#foreach(string className in classNames)
+		{
+			var properClassName = GetProperClassName(className);
+			var repositoryInterfaceName =  "I" + properClassName + "Repository";
+		#>
+	public <#= repositoryInterfaceName + " " + className+"s"#> => new <#= properClassName#>Repository(_context);
+
+		<#}#>
+
+		public I<#=classPrefix#>Context Context()
+		{
+			return _context;
+		}
+	
+		public void Complete()
+		{
+			_context.SaveChanges();
+		}
+
+	}
+}
+<# CreateFile(classPrefix+"UnitofWork.cs"); #>
+<#+
+    public void GenerateRepositoryFromPoco(Project project, string targetNamespace, string projectNamespace, List<string> classNames, string efContext)
+    {
+        foreach(string className in classNames)
+        {
+            var properClassName = GetProperClassName(className);
+            var repositoryName = properClassName + "Repository";
+            #> 
+using <#=projectNamespace#>;		   
+using <#=targetNamespace#>;
+
+namespace <#=targetNamespace#>
+{          
+	public class <#= repositoryName #> : Repository<<#= className #>>, I<#= properClassName #>Repository
+	{
+
+		public <#= repositoryName #>(I<#= efContext #> context) : base(context)
+		{
+
+		}
+
+		//Override any generic method for your own custom implemention, add new repository methods to the I<#= repositoryName #>.cs file
+	}
+}
+<#+  CreateFile(repositoryName + ".cs"); #>
+
+using <#=targetNamespace#>;
+using <#=projectNamespace#>;
+
+namespace <#=targetNamespace#>
+{
+	public interface I<#= properClassName #>Repository : IRepository<<#= className #>>
+	{
+		//Add any additional repository methods other than the generic ones (GetAll, GetById, Delete, Add)
+	}
+}
+<#+ CreateFile(@"I" + repositoryName + ".cs"); #>
+            <#+
+        }
+    }
+#>
