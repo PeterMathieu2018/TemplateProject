@@ -68,17 +68,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Include="Code Generation\IUnitofWork.cs">
-      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Code Generation\RepositoryGenerator.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Code Generation\UnitofWork.cs">
-      <DependentUpon>RepositoryGenerator.tt</DependentUpon>
-    </Compile>
     <Compile Include="Repository.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IRepository.cs" />

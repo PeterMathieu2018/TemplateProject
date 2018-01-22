@@ -14,16 +14,16 @@
 
     Settings.Namespace = DefaultNamespace; // Override the default namespace here
     Settings.DbContextName = "MyDbContext"; // Note: If generating separate files, please give the db context a different name from this tt filename.
-    Settings.DbContextInterfaceName = "IDbContext"; // Defaults to "I" + DbContextName or set string empty to not implement any interface.
-    Settings.DbContextInterfaceBaseClasses = "System.IDisposable";    // Specify what the base classes are for your database context interface
+    Settings.DbContextInterfaceName = "MyDbContext"; // Defaults to "I" + DbContextName or set string empty to not implement any interface.
+    Settings.DbContextInterfaceBaseClasses = "IDbContext";    // Specify what the base classes are for your database context interface
     Settings.DbContextBaseClass = "System.Data.Entity.DbContext";   // Specify what the base class is for your DbContext. For ASP.NET Identity use "IdentityDbContext<ApplicationUser>"
     //Settings.DefaultConstructorArgument = "EnvironmentConnectionStrings.MyDbContext"; //defaults to "Name=" + ConnectionStringName
     Settings.ConfigurationClassName = "Configuration"; // Configuration, Mapping, Map, etc. This is appended to the Poco class name to configure the mappings.
     Settings.FilenameSearchOrder = new[] { "app.config", "web.config" }; // Add more here if required. The config files are searched for in the local project first, then the whole solution second.
-    Settings.GenerateSeparateFiles = false;
+    Settings.GenerateSeparateFiles = true;
     Settings.MakeClassesInternal = false;
-    Settings.MakeClassesPartial = false;
-    Settings.MakeDbContextInterfacePartial = false;
+    Settings.MakeClassesPartial = true;
+    Settings.MakeDbContextInterfacePartial = true;
     Settings.UseMappingTables = true; // If true, mapping will be used and no mapping tables will be generated. If false, all tables will be generated.
     Settings.UsePascalCase = true;    // This will rename the generated C# tables & properties to use PascalCase. If false table & property names will be left alone.
     Settings.UseDataAnnotations = false; // If true, will add data annotations to the poco classes.
@@ -42,7 +42,7 @@
     Settings.CollectionType = "System.Collections.Generic.List";  // Determines the type of collection for the Navigation Properties. "ObservableCollection" for example. Add "System.Collections.ObjectModel" to AdditionalNamespaces if setting the CollectionType = "ObservableCollection".
     Settings.NullableShortHand = true; //true => T?, false => Nullable<T>
     Settings.AddIDbContextFactory = true; // Will add a default IDbContextFactory<DbContextName> implementation for easy dependency injection
-    Settings.AddUnitTestingDbContext = true; // Will add a FakeDbContext and FakeDbSet for easy unit testing
+    Settings.AddUnitTestingDbContext = false; // Will add a FakeDbContext and FakeDbSet for easy unit testing
     Settings.IncludeQueryTraceOn9481Flag = false; // If SqlServer 2014 appears frozen / take a long time when this file is saved, try setting this to true (you will also need elevated privileges).
     Settings.IncludeCodeGeneratedAttribute = true; // If true, will include the GeneratedCode attribute, false to remove it.
     Settings.UsePrivateSetterForComputedColumns = true; // If the columns is computed, use a private setter.
