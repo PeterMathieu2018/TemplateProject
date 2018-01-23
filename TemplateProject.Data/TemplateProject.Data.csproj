@@ -63,11 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Code Generation\CodeFirstGenerator.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CodeFirstGenerator.tt</DependentUpon>
-    </Compile>
     <Compile Include="Repository.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IRepository.cs" />

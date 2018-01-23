@@ -12,11 +12,11 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
 <#  //Set these options
-    string targetNamespace = "";
-	string projectNamespace = "";
+    string targetNamespace = "TemplateProject.Data.Code_Generation";
+	string projectNamespace = "TemplateProject.Data";
 
-    string efContext = "DefaultModel"; //If Context is not in the same namespace rename this to the name of the context
-	string classPrefix="";
+    string efContext = "MusicContext"; //If Context is not in the same namespace rename this to the name of the context
+	string classPrefix="Music";
 
 
     IServiceProvider serviceProvider = (IServiceProvider)this.Host;

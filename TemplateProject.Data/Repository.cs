@@ -13,7 +13,7 @@ namespace TemplateProject.Data
     {
         private bool _disposed = false;
 
-        private readonly IDbContext _context;
+        public readonly IDbContext _context;
 
         protected Repository(IDbContext context)
         {

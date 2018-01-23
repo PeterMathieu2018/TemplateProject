@@ -89,46 +89,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Features\EmailTemplate.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmailTemplate.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\GeneralShippingProcessFulFillingAndVerifyingOrders.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GeneralShippingProcessFulFillingAndVerifyingOrders.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\InventoryManagementDonorPumps.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InventoryManagementDonorPumps.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\InventoryManagementDonorSupplies.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InventoryManagementDonorSupplies.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\OrderCreationDonorCooler.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OrderCreationDonorCooler.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\OrderCreationDonorPumpSupply.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OrderCreationDonorPumpSupply.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\OrderManagementDonorCooler1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OrderManagementDonorCooler.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\OrderManagementDonorPumpSupply.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OrderManagementDonorPumpSupply.feature</DependentUpon>
-    </Compile>
     <Compile Include="Test Methods\Given.cs" />
     <Compile Include="Test Methods\Then.cs" />
     <Compile Include="Test Methods\When.cs" />
@@ -139,38 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Features\EmailTemplate.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>EmailTemplate.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\GeneralShippingProcessFulFillingAndVerifyingOrders.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GeneralShippingProcessFulFillingAndVerifyingOrders.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\InventoryManagementDonorSupplies.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>InventoryManagementDonorSupplies.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\InventoryManagementDonorPumps.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>InventoryManagementDonorPumps.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\OrderCreationDonorPumpSupply.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>OrderCreationDonorPumpSupply.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\OrderCreationDonorCooler.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>OrderCreationDonorCooler.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\OrderManagementDonorCooler.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>OrderManagementDonorCooler1.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\OrderManagementDonorPumpSupply.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>OrderManagementDonorPumpSupply.feature.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -178,7 +106,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Features\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

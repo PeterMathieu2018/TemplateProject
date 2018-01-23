@@ -20,7 +20,6 @@ namespace TemplateProject.UI.Controllers
 
         public ActionResult Index()
         {
-
             return View();
         }
 

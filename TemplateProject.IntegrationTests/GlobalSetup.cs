@@ -15,8 +15,6 @@ namespace TemplateProject.IntegrationTests
             var configuration = new TemplateProject.UI.Migrations.Configuration();
             var migrator = new DbMigrator(configuration);
             migrator.Update();
-
-
         }
     }
 }

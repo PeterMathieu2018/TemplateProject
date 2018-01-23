@@ -284,7 +284,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AuthenticationResult.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -1097,6 +1096,12 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TemplateProject.Data\TemplateProject.Data.csproj">
+      <Project>{747844f0-da0a-4061-8d2b-71b00ea46a58}</Project>
+      <Name>TemplateProject.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
