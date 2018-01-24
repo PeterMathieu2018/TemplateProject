@@ -60,7 +60,7 @@ desired effect
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>T</b>EM</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Tempate</b></span>
+                <span class="logo-lg"><b>Template</b></span>
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -68,6 +68,12 @@ desired effect
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
+                <div class="page-title">
+                    <span><i class="fa fa-dashboard"></i>  @ViewBag.Title</span>@if (!string.IsNullOrEmpty(@ViewBag.Description))
+                    {
+                        <span><i class="glyphicon glyphicon-chevron-right"></i>  @ViewBag.Description</span>
+                    }
+                </div>
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
