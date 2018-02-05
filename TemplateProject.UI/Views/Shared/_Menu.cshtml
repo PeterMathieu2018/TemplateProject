@@ -31,10 +31,10 @@
                             //{
                             if (menuItem.IsParent == false)
                             {
-                                    <li>@Html.ActionLink(menuItem.Controller, menuItem.Action, menuItem.NameOption, new {@class= menuItem.ImageClass })</li>
-                                }
-                                else
-                                {
+                                <li>@Html.ActionLink(menuItem.NameOption, menuItem.Action, menuItem.Controller, null, new { @class = menuItem.ImageClass })</li>
+                            }
+                            else
+                            {
                                     <li class="treeview">
                                         <a href="#">
                                             <i class="@Html.Raw(menuItem.ImageClass)"></i>  <span>@Html.Raw(menuItem.NameOption)</span>
@@ -51,9 +51,9 @@
                                             }
                                         </ul>
                                     </li>
-                                }
-                            }
-                        }
+                             }
+                         }
+                    }
                     
                         <!-- Optionally, you can add icons to the links -->
                     @*<li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
