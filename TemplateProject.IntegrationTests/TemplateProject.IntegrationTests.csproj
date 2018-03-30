@@ -159,6 +159,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="Fakes\FakeControllerContext.cs" />
+    <Compile Include="Fakes\FakeHttpContext.cs" />
+    <Compile Include="Fakes\FakeHttpRequest.cs" />
+    <Compile Include="Fakes\FakeHttpSession.cs" />
+    <Compile Include="Fakes\FakeHttpSessionState.cs" />
+    <Compile Include="Fakes\FakeIdentity.cs" />
+    <Compile Include="Fakes\FakePrincipal.cs" />
+    <Compile Include="Fakes\PostedFile.cs" />
     <Compile Include="GlobalSetup.cs" />
     <Compile Include="IntegrationConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

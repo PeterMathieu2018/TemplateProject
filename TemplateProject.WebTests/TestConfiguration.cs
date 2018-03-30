@@ -18,11 +18,9 @@ namespace TemplateProject.WebTests
 
             //Driver = new InternetExplorerDriver();
             //Driver = new FirefoxDriver();
-
-            Driver = new ChromeDriver();
+            //Driver = new ChromeDriver();
             //BaseUrl = "http://localhost:52118/";
-            BaseUrl = "http://mbts.dev.prolacta.com/";
-            ScreenshotLocation = @"C:\Screenshots\MBTS\";
+            ScreenshotLocation = @"C:\Screenshots\TemplateProject\";
             PageTimeOut = 20;
             TestStep = 1;
             TestDateTime = DateTime.Now;
