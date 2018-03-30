@@ -14,6 +14,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using TemplateProject.UI.App_Start;
 using TemplateProject.UI.Models;
+using System.Net.Mail;
 
 namespace TemplateProject.UI
 {
@@ -21,8 +22,13 @@ namespace TemplateProject.UI
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            var client = new SmtpClient();
+            //client.EnableSsl = true;
+            client.Host = "PBMAIL01.prolacta.com";
+            return client.SendMailAsync(ConfigurationManager.AppSettings["TemplateEmailAddress"],
+                                        message.Destination,
+                                        message.Subject,
+                                        message.Body);
         }
     }
 
@@ -107,25 +113,6 @@ namespace TemplateProject.UI
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
-        }
-
-        public SignInStatus AdSignInAsync(string userName, string password, bool isPersistent, bool shouldLockout)
-        {
-            // var result = base.PasswordSignInAsync(userName, password, isPersistent, shouldLockout);
-            var loginService = new AdAuthenticationService(this.AuthenticationManager);
-            var contextType = ContextType.Domain;
-            var adLocation = ConfigurationManager.AppSettings["ActiveDirectoryLocation"];
-
-            var authenticationResult = loginService.SignIn(userName, password, contextType, adLocation);
-
-            if (authenticationResult.IsSuccess)
-            {
-                return SignInStatus.Success;
-            }
-            else
-            {
-                return SignInStatus.Failure;
-            }
         }
     }
 }
