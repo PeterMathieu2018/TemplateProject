@@ -12,9 +12,6 @@ namespace TemplateProject.IntegrationTests
         [OneTimeSetUp]
         public void SetUp()
         {
-            var configuration = new TemplateProject.UI.Migrations.Configuration();
-            var migrator = new DbMigrator(configuration);
-            migrator.Update();
         }
     }
 }

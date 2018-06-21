@@ -1,0 +1,100 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true" #>
+<#@ output extension=".cs" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="EnvDTE" #>
+<#@ import namespace="EnvDTE" #>
+<#@ include file="AutomationHelper.ttinclude" #>
+<#@ include file="T4Helper.ttinclude" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#  //Set these options
+    string targetProject = "TemplateProject.UI";
+	string targetNamespace = "TemplateProject.UI.Controllers";
+	string testType = "IntegrationTests";
+
+	var VisualStudioHelper = new AutomationHelper(this.Host);
+	var project = VisualStudioHelper.GetProject(targetProject);
+     //Namespace
+     var classes = FindClasses(project,targetNamespace,"");
+
+	foreach (EnvDTE.CodeClass classType in classes)
+    {
+        var methods = VisualStudioHelper.GetAllCodeElementsOfType(classType.Members, EnvDTE.vsCMElement.vsCMElementFunction, false);
+        foreach (var method in methods)
+        {
+            CreateTestClass(targetProject,targetNamespace,testType,classType.Name,methods);
+        }
+    }
+#>
+
+<#+
+	public void CreateTestClass(string targetProject, string targetNamespace,string testType,string classType, IEnumerable<CodeElement> ClassMethods)
+	{
+var className=classType+testType;
+#>
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using <#= targetProject #>;		   
+using <#=targetNamespace#>;
+
+namespace <#= targetProject+"."+testType #>
+{	
+	[TestClass]
+	public class <#=classType+testType#>
+	{
+		<#+
+		foreach (EnvDTE.CodeFunction classMethod in ClassMethods)
+		{			
+			CreateTest(classType, classMethod.Name, classMethod.Parameters , classMethod.Type.AsFullName.ToString().Substring(classMethod.Type.AsFullName.LastIndexOf('.')+1).Replace(">",""));
+		}
+		#>
+	}
+}
+<#+  CreateFile(className + ".cs"); 
+}
+#>
+
+<#+
+public void CreateTest(string ClassName, string MethodName, CodeElements parameters, string ReturnType)
+{
+		var testParams = "";
+		foreach (CodeElement param in parameters)
+        {		
+		  testParams+=param.Name;
+		}
+	
+if (ReturnType=="Void")
+{
+#>
+
+<#+
+}
+else if (string.IsNullOrEmpty(testParams))
+{
+#>[TestMethod]
+		public void <#= ClassName #>_<#= MethodName #>_Returns<#= ReturnType#>()
+		{
+			////Given
+			////When
+			////Then
+		}
+<#+
+}
+else
+{
+#>	
+		[TestMethod]
+		public void <#= ClassName #>_<#= MethodName #>_Given<#=testParams#>_Returns<#= ReturnType #>()
+		{
+			////Given
+			////When
+			////Then
+		}
+<#+
+	}
+}
+#>
